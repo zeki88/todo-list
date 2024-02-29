@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./output.css">
+    <script src="index.js" type="module" defer></script>
+    <script src="https://kit.fontawesome.com/7f6dcfd3b3.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+</head>
+<body>
+  
+  <div class="backdrop-blur-sm absolute w-screen h-screen hidden" id="blur"></div>
+  <header>
+    <nav class="flex bg-cyan-700 h-[10vh] gap-5" id="page-nav">
+      <i class="ml-8 text-3xl font-bold text-white">✓</i>
+      <h1 class="text-white page-title font-bold text-3xl">Todo List</h1>
+    </nav>
+  </header>
+
+  <div class="grid h-[84vh] grid-cols-6" id="divBody">
+      <nav class="h-[84vh] flex flex-col bg-slate-300">
+        <div class="flex flex-col" id="">
+          <button id="all-todos" type="button" class="mt-1 mb-1 focus:bg-cyan-600 focus:text-white text-slate-600 hover:text-white hover:bg-gray-900 text-lg text-center dark:to-black dark:hover:bg-cyan-500">
+            <i class="fa-solid fa-clipboard-list"></i>
+            All Todos
+          </button>
+          <button id="today-todos" type="button" class="mt-1 mb-1 focus:bg-cyan-600 focus:text-white text-slate-600 hover:text-white hover:bg-gray-900 text-lg text-center dark:to-black dark:hover:bg-cyan-500">
+            <i class="fa-solid fa-calendar-day"></i>
+            Today
+          </button>
+          <button id="week-todos" type="button" class="mt-1 mb-5 focus:bg-cyan-600 focus:text-white text-slate-600 hover:text-white hover:bg-gray-900 text-lg text-center dark:to-black dark:hover:bg-cyan-500">
+            <i class="fa-solid fa-calendar-week"></i>
+            This week</button>
+        </div>
+        <div class="flex flex-col overflow-auto h-64" id="project-nav">
+        </div>
+        <button type="button" id="add-project" class="flex place-content-center place-items-center m-auto text-white font-bold text-3xl bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:ring-cyan-300 rounded-full text-center  dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900 w-8 h-8">
+          +
+        </button>
+      </nav>
+
+        <form id="task-form" action="" class="hidden fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-slate-400 rounded w-80 p-4 scale-1">
+          <div class="mt-3 relative w-full min-w-[200px] h-10">
+            <input id="task-name" class="project peer w-full h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-cyan-800" placeholder=" " required/>
+            <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-blue-gray-400 peer-focus:text-cyan-800 before:border-blue-gray-200 peer-focus:before:!border-cyan-800 after:border-blue-gray-200 peer-focus:after:!border-cyan-800">
+              Name
+            </label>
+          </div>  
+          <div class="mt-3 relative w-full min-w-[200px] h-10">
+            <input id="task-day" class="project peer w-full h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-cyan-800" placeholder=" " type="date" required/>
+            <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-blue-gray-400 peer-focus:text-cyan-800 before:border-blue-gray-200 peer-focus:before:!border-cyan-800 after:border-blue-gray-200 peer-focus:after:!border-cyan-800">
+              Day
+            </label>
+          </div> 
+          <div class="mt-3 relative w-full min-w-[200px] h-10">
+            <select id="task-priority" class="project peer w-full h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-cyan-800" placeholder=" ">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+            <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-blue-gray-400 peer-focus:text-cyan-800 before:border-blue-gray-200 peer-focus:before:!border-cyan-800 after:border-blue-gray-200 peer-focus:after:!border-cyan-800">
+              Priority
+            </label>
+          </div>
+          <button type="submit" name="action" value="add" id="add-task" class="hidden mt-3 text-slate-300 place-content-center place-items-center m-auto p-1 text-xs bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:ring-cyan-300 rounded text-center  dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900">Add task</button>
+          <button type="submit" name="action" value="edit" id="edit-task" class="hidden mt-3 text-slate-300 place-content-center place-items-center m-auto p-1 text-xs bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:ring-cyan-300 rounded text-center  dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900">Edit task</button>
+        </form>
+
+
+      <div class="h-[84vh] p-3 content col-span-5 bg-gray-200" id="content">
+        <div>
+          <h1 id="project-name" class="text-2xl"></h1>
+          <button id="project-delete" class="hidden text-white place-self-center bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-300 font-medium rounded-full text-sm text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-5 h-5">X</button>
+          <button id="new-task" class="hidden mb-5 text-white place-content-center place-items-center m-auto p-1 text-xs bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:ring-cyan-300 rounded text-center  dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900">+ New task</button>
+
+        </div>
+        <div id="task-container" class="flex flex-col gap-2"></div>
+  </div>
+  </div>
+
+  <div class="hidden fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-slate-400 rounded w-80 p-4 scale-1" id="project-form">
+    <form id="form" action="" class="flex gap-5 flex-col">
+      <div class="relative w-full min-w-[200px] h-10">
+        <input id="project" class="project peer w-full h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-cyan-800" placeholder=" " required/>
+        <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-blue-gray-400 peer-focus:text-cyan-800 before:border-blue-gray-200 peer-focus:before:!border-cyan-800 after:border-blue-gray-200 peer-focus:after:!border-cyan-800">
+          Name
+        </label>
+      </div>
+      <button type="submit" id="create" class="text-slate-300 place-content-center place-items-center m-auto p-1 text-xs bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:ring-cyan-300 rounded text-center  dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-900">
+        New project
+    </button>
+    </form>
+  </div>
+
+  <footer class="h-[6vh] bg-cyan-700 flex justify-center ">
+    <p class="text-white">Copyright © 2024 zeki88</p>
+    <a class="text-white" href="https://github.com/zeki88" target="_blank">
+      <i class="fab fa-github" aria-hidden="true"></i></a>
+  </footer>
+
+</body>
+
+</html>
